@@ -60,7 +60,7 @@ function Card({ content }) {
         onStart={handleDragStart}
         onStop={handleDragEnd}
       >
-        <div style={{zIndex: isMoving.zIndex}}>
+        <span style={{zIndex: isMoving.zIndex}}>
         <Card
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
@@ -76,7 +76,7 @@ function Card({ content }) {
 
           {!isMinimized && <Content>{ContentRenderer()}</Content>}
         </Card>
-        </div>
+        </span>
       </Draggable>
   );
 }

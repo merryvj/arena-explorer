@@ -12,11 +12,9 @@ import { CanvasContext } from "../App";
 
 function Canvas({ contents }) {
     const context = useContext(CanvasContext);
-    
-
   const canvasRef = useRef();
   const origin = { x: 0, y: 0 };
-  const [offset, setOffset] = useState(origin);
+  const offset = useRef(origin);
   const prevMouse = useRef(origin);
 
   const canvasElements = useMemo(() => {
@@ -35,7 +33,6 @@ function Canvas({ contents }) {
       display: grid;
       cursor: grab;
       grid-template-columns: repeat(6, 1fr);
-      transform: translate(${offset.x}px, ${offset.y}px);
     }
   `;
 
@@ -46,11 +43,12 @@ function Canvas({ contents }) {
     const maxTranslateX = canvasRef.current.offsetWidth;
     const maxTranslateY = canvasRef.current.offsetHeight;
 
-    setOffset((prevOffset) => ({
-      x: Math.max(Math.min(prevOffset.x + dx, 0), -maxTranslateX / 4),
-      y: Math.max(Math.min(prevOffset.y + dy, 0), -maxTranslateY / 4),
-    }));
+    offset.current = {
+        x: Math.max(Math.min(offset.current.x + dx, 0), -maxTranslateX / 4),
+        y: Math.max(Math.min(offset.current.y + dy, 0), -maxTranslateY / 4),
+    }
 
+    canvasRef.current.style.transform = `translate(${offset.current.x}px, ${offset.current.y}px)`;
     prevMouse.current.x = e.clientX;
     prevMouse.current.y = e.clientY;
   }, []);
@@ -66,7 +64,7 @@ function Canvas({ contents }) {
     (e) => {
       if (context.isMoving) {
         return;
-      };
+      }
 
       prevMouse.current = { x: e.pageX, y: e.pageY };
       window.addEventListener("mousemove", mouseMove);
@@ -74,6 +72,7 @@ function Canvas({ contents }) {
 
       canvasRef.current.style.userSelect = "none";
       canvasRef.current.style.cursor = "grabbing";
+    
     },
     [mouseMove, mouseUp]
   );
