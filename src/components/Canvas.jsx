@@ -3,6 +3,7 @@ import Card from "./Card";
 import { styled } from "styled-components";
 
 function Canvas({ contents }) {
+    const canvasRef = useRef();
   const origin = { x: 0, y: 0 };
   const [offset, setOffset] = useState(origin);
   const prevMouse = useRef(origin);
@@ -29,8 +30,7 @@ function Canvas({ contents }) {
     display: grid;
     cursor: grab;
     grid-template-columns: repeat(6, 1fr);
-    transform: translate(-50%, -50%) scale(${scale})
-      translate(${offset.x}px, ${offset.y}px);
+    transform: translate(-50%, -50%) translate(${offset.x}px, ${offset.y}px);
     }
 
     &:active{
@@ -56,6 +56,7 @@ function Canvas({ contents }) {
   const mouseUp = useCallback(() => {
     window.removeEventListener("mousemove", mouseMove);
     window.removeEventListener("mouseup", mouseUp);
+    canvasRef.current.style.userSelect = 'auto';
   }, [mouseMove]);
 
   const handlePan = useCallback((e) => {
@@ -63,10 +64,12 @@ function Canvas({ contents }) {
     prevMouse.current = { x: e.pageX, y: e.pageY };
     window.addEventListener('mousemove', mouseMove);
     window.addEventListener('mouseup', mouseUp);
+    
+    canvasRef.current.style.userSelect = 'none';
   }, [mouseMove, mouseUp]);
 
   return (
-    <Wrapper onMouseDown={handlePan} onMouseUp={mouseUp}>
+    <Wrapper ref={canvasRef} onMouseDown={handlePan} onMouseUp={mouseUp}>
       {canvasElements}
     </Wrapper>
   );
