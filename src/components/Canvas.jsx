@@ -25,14 +25,14 @@ function Canvas({ contents }) {
 
   const Wrapper = styled.div`
     & {
-      position: absolute;
+      width: 150vw;
       height: 200vh;
-      width: 200vw;
       background-color: #efefef;
       overflow: scroll;
       display: grid;
       cursor: grab;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(5, 1fr);
+      transform: translate(${offset.current.x}px, ${offset.current.y}px)
     }
   `;
 
@@ -44,8 +44,10 @@ function Canvas({ contents }) {
     const maxTranslateY = canvasRef.current.offsetHeight;
 
     offset.current = {
-        x: Math.max(Math.min(offset.current.x + dx, 0), -maxTranslateX / 4),
+        x: Math.max(Math.min(offset.current.x + dx, 0), -maxTranslateX / 3),
         y: Math.max(Math.min(offset.current.y + dy, 0), -maxTranslateY / 4),
+        // x: offset.current.x + dx,
+        // y: offset.current.y + dy
     }
 
     canvasRef.current.style.transform = `translate(${offset.current.x}px, ${offset.current.y}px)`;
