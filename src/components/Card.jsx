@@ -86,6 +86,7 @@ const ActionButton = styled.button `
 const Actions = styled.div`
     position: absolute;
     top: 0;
+    height: 24px;
     width: 100%;
     border: dashed 1px blue;
     user-select: none;
