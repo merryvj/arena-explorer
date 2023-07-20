@@ -1,16 +1,21 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, {useState, useRef, useCallback, useMemo } from "react";
 import Card from "./Card";
 import { styled } from "styled-components";
-import debounce from "lodash.debounce";
 
 function Canvas({ contents }) {
   const origin = { x: 0, y: 0 };
-  const [scale, setScale] = useState(1);
   const [offset, setOffset] = useState(origin);
-  const [mouse, setMouse] = useState(origin);
-  const prevOffset = useRef(origin);
   const prevMouse = useRef(origin);
-  const [isPanning, setIsPanning] = useState(false);
+
+  const canvasElements = useMemo(() => {
+    return (
+        contents.map((c, i) => (
+            <div key={i}>
+              <Card content={c} />
+            </div>
+          ))
+    )
+  }, [contents])
 
   const Wrapper = styled.div`
     &{
@@ -32,18 +37,6 @@ function Canvas({ contents }) {
         cursor: grabbing;
     }
   `;
-
-
-  const handleWheel = useCallback(
-    (e) => {
-      e.preventDefault();
-      const scaleMultiplier = 1.1;
-      const newScale =
-        scale * (event.deltaY > 0 ? 1 / scaleMultiplier : scaleMultiplier);
-      setScale(Math.min(Math.max(0.2, newScale), 4));
-    },
-    [scale]
-  );
 
   const mouseMove = useCallback((e) => {
     console.log('hiii')
@@ -73,12 +66,8 @@ function Canvas({ contents }) {
   }, [mouseMove, mouseUp]);
 
   return (
-    <Wrapper onWheel={handleWheel} onMouseDown={handlePan} onMouseUp={mouseUp}>
-      {contents.map((c, i) => (
-        <div key={i}>
-          <Card content={c} />
-        </div>
-      ))}
+    <Wrapper onMouseDown={handlePan} onMouseUp={mouseUp}>
+      {canvasElements}
     </Wrapper>
   );
 }

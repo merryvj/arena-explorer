@@ -120,7 +120,7 @@ const TextBlock = ({ content }) => {
 };
 
 const LinkBlock = ({ content }) => {
-  return <Frame src={content.source.url}></Frame>;
+//   return <Frame src={content.source.url}></Frame>;
 };
 
 const MediaBlock = ({ content }) => {
