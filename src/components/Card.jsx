@@ -122,15 +122,18 @@ const Content = styled.div`
   top: 24px;
   width: 100%;
   height: 100%;
-  overflow: scroll;
+  background-color: inherit;
+  overflow: hidden;
   padding: 4px;
   border: dashed 1px blue;
   border-top: none;
   overscroll-behavior: none;
 `;
 
+
+
 const TextBlock = ({ content }) => {
-  return <div>{content.content}</div>;
+  return <Text>{content.content}</Text>;
 };
 
 const LinkBlock = ({ content }) => {
@@ -153,6 +156,12 @@ const MediaBlock = ({ content }) => {
 const ImageBlock = ({ content }) => {
   return <Image src={content.image.display.url} />;
 };
+
+const Text = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+`
 
 const Image = styled.img`
   width: 100%;

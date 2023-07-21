@@ -56,8 +56,8 @@ function Canvas({ contents }) {
   }, []);
 
   const mouseUp = useCallback(() => {
-    window.removeEventListener("mousemove", mouseMove);
-    window.removeEventListener("mouseup", mouseUp);
+    canvasRef.current.removeEventListener("mousemove", mouseMove);
+    canvasRef.current.removeEventListener("mouseup", mouseUp);
     canvasRef.current.style.userSelect = "auto";
     canvasRef.current.style.cursor = "grab";
   }, [mouseMove]);
@@ -69,8 +69,8 @@ function Canvas({ contents }) {
       }
 
       prevMouse.current = { x: e.pageX, y: e.pageY };
-      window.addEventListener("mousemove", mouseMove);
-      window.addEventListener("mouseup", mouseUp);
+      canvasRef.current.addEventListener("mousemove", mouseMove);
+      canvasRef.current.addEventListener("mouseup", mouseUp);
 
       canvasRef.current.style.userSelect = "none";
       canvasRef.current.style.cursor = "grabbing";
