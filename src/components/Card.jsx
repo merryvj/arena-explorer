@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { createPortal } from 'react-dom';
 import { styled } from "styled-components";
 import Draggable from "react-draggable";
 import { CanvasContext } from "../App";
@@ -37,11 +38,13 @@ function Card({ content }) {
     context.isMoving = false;
   };
 
+
   return (
     <Draggable
       handle="#actions"
       onStart={handleDragStart}
       onStop={handleDragEnd}
+      cancel="button"
     >
       <Wrapper>
         <Card
