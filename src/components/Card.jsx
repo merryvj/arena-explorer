@@ -32,15 +32,20 @@ function Card({ content }) {
 
   const Card = styled.div`
     position: relative;
-    width: 400px;
-    height: ${isMinimized ? 28 : 275}px;
+    height: 100%;
+    width: 100%;
     background-color: rgba(240, 240, 240, 0.9);
     display: inline-block;
     backdrop-filter: blur(8px);
-    margin: 48px;
     color: black;
     zIndex: ${isMoving.zIndex}
   `;
+
+  const Wrapper = styled.div`
+  width: 400px;
+  height: ${isMinimized ? 28 : 275}px;
+  zIndex: ${isMoving.zIndex}
+  `
 
   const handleDragStart = () => {
     setIsMoving({ ...isMoving, status: true, zIndex: context.maxZIndex + 1 });
@@ -60,7 +65,7 @@ function Card({ content }) {
         onStart={handleDragStart}
         onStop={handleDragEnd}
       >
-        <span style={{zIndex: isMoving.zIndex}}>
+        <Wrapper>
         <Card
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
@@ -76,7 +81,7 @@ function Card({ content }) {
 
           {!isMinimized && <Content>{ContentRenderer()}</Content>}
         </Card>
-        </span>
+        </Wrapper>
       </Draggable>
   );
 }
