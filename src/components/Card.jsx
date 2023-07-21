@@ -1,10 +1,12 @@
 import React, { useState, useContext } from "react";
 import { styled } from "styled-components";
 import Draggable from "react-draggable";
-import { Resizable } from "react-resizable";
 import { CanvasContext } from "../App";
+import usePortal from 'react-useportal'
+
 
 function Card({ content }) {
+  const { Portal } = usePortal()
   const context = useContext(CanvasContext);
   const [isHovered, setIsHovered] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
@@ -38,13 +40,12 @@ function Card({ content }) {
     display: inline-block;
     backdrop-filter: blur(8px);
     color: black;
-    zIndex: ${isMoving.zIndex}
   `;
 
   const Wrapper = styled.div`
   width: 400px;
   height: ${isMinimized ? 28 : 275}px;
-  zIndex: ${isMoving.zIndex}
+  z-index: ${isMoving.zIndex}
   `
 
   const handleDragStart = () => {
