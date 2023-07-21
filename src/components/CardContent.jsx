@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { styled } from "styled-components";
 
 function CardContent({ content }) {
@@ -43,7 +43,34 @@ const TextBlock = ({ content }) => {
   };
   
   const LinkBlock = ({ content }) => {
-      return <Frame src={content.source.url}></Frame>;
+    
+    const [isActive, setIsActive] = useState(false);
+
+    const LinkPreview = styled.div`
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        visibility: ${isActive ? 'hidden' : 'visible'};
+        background: url(${content.image.thumb.url});
+    `
+
+    const handleHover = () => {
+        setTimeout(() => {
+            setIsActive(true);
+        }, 1000)
+    }
+    
+      return (
+        <>
+        <LinkPreview onMouseEnter={handleHover}>
+        </LinkPreview>
+        <Frame src={content.source.url}></Frame>
+        </>
+      );
   };
   
   const MediaBlock = ({ content }) => {
