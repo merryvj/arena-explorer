@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { createPortal } from 'react-dom';
+import { createPortal } from "react-dom";
 import { styled } from "styled-components";
 import Draggable from "react-draggable";
 import { CanvasContext } from "../App";
@@ -38,7 +38,6 @@ function Card({ content }) {
     context.isMoving = false;
   };
 
-
   return (
     <Draggable
       handle="#actions"
@@ -54,28 +53,35 @@ function Card({ content }) {
           <Actions id="actions">
             <Title>{content.title}</Title>
             {isHovered && (
-              <ActionButton onClick={() => setIsMinimized(!isMinimized)}>
-                {isMinimized ? "+" : "-"}
-              </ActionButton>
+              <ActionButtons>
+                <ActionButton onClick={() => setIsMinimized(!isMinimized)}>
+                  {isMinimized ? "+" : "-"}
+                </ActionButton>
+                <ActionButton>*</ActionButton>
+              </ActionButtons>
             )}
           </Actions>
 
-          {!isMinimized && <CardContent content={content}/>}
+          {!isMinimized && <CardContent content={content} />}
         </Card>
       </Wrapper>
     </Draggable>
   );
 }
 
+const ActionButtons = styled.div`
+  top: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+`;
 const ActionButton = styled.button`
   & {
-    position: absolute;
-    top: 0;
-    right: 4px;
+    float: right;
     background: none;
     color: inherit;
     border: none;
-    padding: 0;
+    padding: 0 8px;
     font: inherit;
     cursor: pointer;
     outline: inherit;
