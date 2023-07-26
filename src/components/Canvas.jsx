@@ -15,6 +15,7 @@ function Canvas({ contents }) {
   const canvasRef = useRef();
   const origin = { x: 0, y: 0 };
   const offset = useRef(origin);
+  const scale = useRef(1);
   const prevMouse = useRef(origin);
 
   const canvasElements = useMemo(() => {
@@ -25,16 +26,29 @@ function Canvas({ contents }) {
 
   const Wrapper = styled.div`
     & {
-      width: 150vw;
-      height: 200vh;
+      position: absolute;
+      left:50%;
+      top:50%;
+      margin-left:-150vw;
+      margin-top:-150vh;
+      width: 300vw;
+      height: 300vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       background-color: #efefef;
       overflow: scroll;
-      display: grid;
       cursor: grab;
-      grid-template-columns: repeat(5, 1fr);
-      transform: translate(${offset.current.x}px, ${offset.current.y}px)
+      transform: scale(${scale.current}) translate(${offset.current.x}px, ${offset.current.y}px)
     }
   `;
+
+  const Grid = styled.div `
+    height: 150vh;
+    width: 150vw;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  `
 
   const mouseMove = useCallback((e) => {
     const dx = e.clientX - prevMouse.current.x;
@@ -44,11 +58,13 @@ function Canvas({ contents }) {
     const maxTranslateY = canvasRef.current.offsetHeight;
 
     offset.current = {
-        x: Math.max(Math.min(offset.current.x + dx, 0), -maxTranslateX / 3),
-        y: Math.max(Math.min(offset.current.y + dy, 0), -maxTranslateY / 4),
+        // x: Math.max(Math.min(offset.current.x + dx, 0), -maxTranslateX),
+        // y: Math.max(Math.min(offset.current.y + dy, 0), -maxTranslateY),
+        x: offset.current.x + dx,
+        y: offset.current.y + dy
     }
 
-    canvasRef.current.style.transform = `translate(${offset.current.x}px, ${offset.current.y}px)`;
+    canvasRef.current.style.transform = `scale(${scale.current}) translate(${offset.current.x}px, ${offset.current.y}px)`;
     prevMouse.current.x = e.clientX;
     prevMouse.current.y = e.clientY;
   }, []);
@@ -77,9 +93,19 @@ function Canvas({ contents }) {
     [mouseMove, mouseUp]
   );
 
+  const handleZoom = (e) => {
+    if (context.isScrollingFrame) return;
+    scale.current += e.deltaY/1000;
+    scale.current = Math.max(scale.current, 0.5);
+    console.log(scale.current);
+    canvasRef.current.style.transform = `scale(${scale.current}) translate(${offset.current.x}px, ${offset.current.y}px)`;
+  }
+
   return (
-    <Wrapper ref={canvasRef} onMouseDown={handlePan} onMouseUp={mouseUp}>
-        {canvasElements}
+    <Wrapper ref={canvasRef} onMouseDown={handlePan} onMouseUp={mouseUp} onWheel={handleZoom}>
+        <Grid>
+          {canvasElements}
+        </Grid>
     </Wrapper>
   );
 }

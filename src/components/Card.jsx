@@ -38,6 +38,13 @@ function Card({ content }) {
     context.isMoving = false;
   };
 
+  const handleFrameScroll = () => {
+    context.isScrollingFrame = true;
+
+    setTimeout(() => {
+      context.isScrollingFrame = false;
+    }, 2000)
+  }
   return (
     <Draggable
       handle="#actions"
@@ -62,7 +69,7 @@ function Card({ content }) {
             )}
           </Actions>
 
-          {!isMinimized && <CardContent content={content} />}
+          {!isMinimized && <CardContent content={content} onWheel={handleFrameScroll}/>}
         </Card>
       </Wrapper>
     </Draggable>

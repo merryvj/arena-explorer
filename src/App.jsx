@@ -9,6 +9,7 @@ const initialContext = {
   maxZIndex: 1,
   isPanning: false,
   isMoving: false,
+  isScrollingFrame: false,
   movingEl: null,
 }
 
