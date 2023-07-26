@@ -11,7 +11,47 @@ import { CanvasContext } from "../App";
 
 
 function Canvas({ contents }) {
-    const context = useContext(CanvasContext);
+  const [camera, setCamera] = React.useState({
+    x: 0,
+    y: 0,
+    z: 1
+  });
+
+  //turns a screen point into a canvas point
+function screenToCanvas(point, camera) {
+  return {
+    x: point.x / camera.z - camera.x,
+    y: point.y / camera.z - camera.y,
+  };
+}
+
+function panCamera(camera, dx, dy) {
+  return {
+    x: camera.x - dx / camera.z,
+    y: camera.y - dy / camera.z,
+    z: camera.z,
+  };
+}
+
+function zoomCamera(camera, point, dz) {
+  const zoom = camera.z - dz * camera.z;
+
+  const p1 = screenToCanvas(point, camera);
+
+  const p2 = screenToCanvas(point, { ...camera, z: zoom });
+
+  return {
+    x: camera.x + (p2.x - p1.x),
+    y: camera.y + (p2.y - p1.y),
+    z: zoom,
+  };
+}
+
+
+  const transform = `scale(${camera.z}) translate(${camera.x}px, ${camera.y}px)`;
+
+
+  const context = useContext(CanvasContext);
   const canvasRef = useRef();
   const origin = { x: 0, y: 0 };
   const offset = useRef(origin);
@@ -32,53 +72,29 @@ function Canvas({ contents }) {
       display: grid;
       cursor: grab;
       grid-template-columns: repeat(5, 1fr);
-      transform: translate(${offset.current.x}px, ${offset.current.y}px)
+      transform: ${transform}
     }
   `;
 
-  const mouseMove = useCallback((e) => {
-    const dx = e.clientX - prevMouse.current.x;
-    const dy = e.clientY - prevMouse.current.y;
+  const handleZoom = (e) => {
+    e.preventDefault();
+    console.log(transform);
+      const { clientX, clientY, deltaX, deltaY, ctrlKey } = e;
 
-    const maxTranslateX = canvasRef.current.offsetWidth;
-    const maxTranslateY = canvasRef.current.offsetHeight;
+      if (ctrlKey) {
+        setCamera((camera) =>
+          zoomCamera(camera, { x: clientX, y: clientY }, deltaY / 400)
+        );
+      } else {
+        setCamera((camera) => panCamera(camera, deltaX, deltaY));
+      };
 
-    offset.current = {
-        x: Math.max(Math.min(offset.current.x + dx, 0), -maxTranslateX / 3),
-        y: Math.max(Math.min(offset.current.y + dy, 0), -maxTranslateY / 4),
-    }
+      canvasRef.current.style.transform = transform;
+  }
 
-    canvasRef.current.style.transform = `translate(${offset.current.x}px, ${offset.current.y}px)`;
-    prevMouse.current.x = e.clientX;
-    prevMouse.current.y = e.clientY;
-  }, []);
-
-  const mouseUp = useCallback(() => {
-    canvasRef.current.removeEventListener("mousemove", mouseMove);
-    canvasRef.current.removeEventListener("mouseup", mouseUp);
-    canvasRef.current.style.userSelect = "auto";
-    canvasRef.current.style.cursor = "grab";
-  }, [mouseMove]);
-
-  const handlePan = useCallback(
-    (e) => {
-      if (context.isMoving) {
-        return;
-      }
-
-      prevMouse.current = { x: e.pageX, y: e.pageY };
-      canvasRef.current.addEventListener("mousemove", mouseMove);
-      canvasRef.current.addEventListener("mouseup", mouseUp);
-
-      canvasRef.current.style.userSelect = "none";
-      canvasRef.current.style.cursor = "grabbing";
-    
-    },
-    [mouseMove, mouseUp]
-  );
 
   return (
-    <Wrapper ref={canvasRef} onMouseDown={handlePan} onMouseUp={mouseUp}>
+    <Wrapper ref={canvasRef} onWheel={(e) => handleZoom(e)}>
         {canvasElements}
     </Wrapper>
   );
