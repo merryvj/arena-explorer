@@ -43,7 +43,7 @@ function Card({ content }) {
 
     setTimeout(() => {
       context.isScrollingFrame = false;
-    }, 2000)
+    }, 1000)
   }
   return (
     <Draggable

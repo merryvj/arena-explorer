@@ -1,5 +1,5 @@
 import React, {
-  useState,
+  useEffect,
   useRef,
   useCallback,
   useMemo,
@@ -93,16 +93,27 @@ function Canvas({ contents }) {
     [mouseMove, mouseUp]
   );
 
-  const handleZoom = (e) => {
-    if (context.isScrollingFrame) return;
-    scale.current += e.deltaY/1000;
-    scale.current = Math.max(scale.current, 0.5);
-    console.log(scale.current);
-    canvasRef.current.style.transform = `scale(${scale.current}) translate(${offset.current.x}px, ${offset.current.y}px)`;
-  }
+  useEffect(() => {
+    const handleZoom = (e) => {
+      e.preventDefault();
+      if (context.isScrollingFrame) return;
+      scale.current += e.deltaY/1000;
+      scale.current = Math.max(scale.current, 0.5);
+      canvasRef.current.style.transform = `scale(${scale.current}) translate(${offset.current.x}px, ${offset.current.y}px)`;
+    }
+
+    let ref = canvasRef.current;
+    if(!ref) return;
+    ref.addEventListener("wheel", handleZoom, { passive: false });
+
+    return () => {
+      ref.removeEventListener("wheel", handleZoom);
+    };
+  }, [canvasRef])
+  
 
   return (
-    <Wrapper ref={canvasRef} onMouseDown={handlePan} onMouseUp={mouseUp} onWheel={handleZoom}>
+    <Wrapper ref={canvasRef} onMouseDown={handlePan} onMouseUp={mouseUp}>
         <Grid>
           {canvasElements}
         </Grid>
