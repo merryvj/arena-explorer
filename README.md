@@ -1,4 +1,4 @@
-# [WIP] Are.na Hypermedia Canvas 
+# [WIP 🚧] Are.na Hypermedia Canvas 
 
 This is a prototype tool that imports multimedia "blocks" from a specified Are.na channel onto an interactive canvas.
 
