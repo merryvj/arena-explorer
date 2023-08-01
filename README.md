@@ -6,7 +6,7 @@ Try it in action: [Link coming soon!]
 
 ![image](https://github.com/merryvj/arena-explorer/assets/41601131/74837ead-ef85-4167-bf40-481c30fa9394)
 
-When I use Are.na to collect ideas and other fragments, I want to organize ideas in relation to each other. This project is a baby step in trying to build tooling to support my personal workflows on the web. 
+When I use Are.na to collect ideas and other fragments, I want to organize ideas in relation to each other. This project is a baby step in trying to build tooling to support my personal wanderings on the web. 
 
  
 ### Features
