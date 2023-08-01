@@ -17,7 +17,7 @@ const initialContext = {
 
 
 function App() {
-  const [channel, setChannel] = useState("https://www.are.na/ivol-ga/interconnections-and-networks");
+  const [channel, setChannel] = useState("https://www.are.na/are-na-team/arena-influences");
   const {blocks, status} = useChannel(channel);
 
   return (

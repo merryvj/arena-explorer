@@ -19,27 +19,58 @@ function ChannelInput({updateBlocks}) {
 
   return (
     <Wrapper onSubmit={(e) => handleSubmit(e)}>
-        <label htmlFor='url'>Channel URL</label>
-        <input
-            id='url'
-            type='url'
-            value={channelURL}
-            placeholder="url"
-            onChange={(e) => setChannelURL(e.target.value)}
-        >
-        </input>
-        <input type='submit' value="Add channel"></input>
+        <Form>
+            {/* <label htmlFor='url'>Channel URL</label> */}
+            <URLInput
+                id='url'
+                type='url'
+                value={channelURL}
+                placeholder="https://www.are.na/are-na-team/arena-influences"
+                onChange={(e) => setChannelURL(e.target.value)}
+            >
+            </URLInput>
+            <SubmitBtn type='submit' value="Set channel"></SubmitBtn>
+        </Form>
     </Wrapper>
   )
 }
 
 
-const Wrapper = styled.form`
-    position: absolute;
+const Wrapper = styled.div`
+    position: fixed;
     top: 0;
-    width: 100%;
+    left: 0;
+    width: 100vw;
     height: 32px;
-    z-index: 10;
-    color: inherit;
+    z-index: 9999;
+    color: black;
+`
+
+const Form = styled.form`
+    position: relative;
+    float: right;
+    height: 100%;
+    border: solid 1px blue;
+`
+
+const URLInput = styled.input`
+    outline: none;
+    border-radius: 0;
+    border: 0;
+    border-right: solid 1px black;
+    height: 100%;
+    min-width: 300px;
+    padding: 0 8px;
+    background: #cecece;
+    color: black;
+`
+
+const SubmitBtn = styled.input`
+    height: 100%;
+    padding: 0 8px;
+    color: black;
+    border-radius: 0;
+    outline: 0;
+    border: 0;
 `
 export default ChannelInput
