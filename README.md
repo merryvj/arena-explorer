@@ -4,7 +4,8 @@ This is a prototype tool that imports multimedia "blocks" from a specified Are.n
 
 Try it in action: [Link coming soon!]
 
-![image](https://github.com/merryvj/arena-explorer/assets/41601131/74837ead-ef85-4167-bf40-481c30fa9394)
+![257353339-feac3394-9726-4349-b8ae-55518693b75a](https://github.com/merryvj/arena-explorer/assets/41601131/dd562386-92e9-463f-8c9e-d88957019b2d)
+
 
 When I use Are.na to collect ideas and other fragments, I want to organize ideas in relation to each other. This project is a baby step in trying to build tooling to support my personal wanderings on the web. 
 
