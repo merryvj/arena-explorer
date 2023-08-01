@@ -2,6 +2,7 @@ import React, {createContext} from 'react';
 import data from '../contents.json';
 import Canvas from './components/Canvas';
 import './App.css'
+import useChannel from './hooks/useChannel';
 
 
 export const CanvasContext = createContext();
@@ -14,14 +15,13 @@ const initialContext = {
 }
 
 function App() {
-  let contents = data.contents;
-  contents.forEach((d) => (
-    console.log(d.title)
-  ))
+  const {blocks, status} = useChannel("https://www.are.na/ivol-ga/interconnections-and-networks");
 
   return (
     <CanvasContext.Provider value={initialContext}>
-      <Canvas contents={contents}/>
+      {status === "loaded" && (
+        <Canvas contents={blocks.contents}/>
+      )}
     </CanvasContext.Provider>
   )
 }
