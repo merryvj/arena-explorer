@@ -3,6 +3,7 @@ import data from '../contents.json';
 import Canvas from './components/Canvas';
 import './App.css'
 import useChannel from './hooks/useChannel';
+import ChannelInput from './components/ChannelInput';
 
 
 export const CanvasContext = createContext();
@@ -19,6 +20,7 @@ function App() {
 
   return (
     <CanvasContext.Provider value={initialContext}>
+      <ChannelInput/>
       {status === "loaded" && (
         <Canvas contents={blocks.contents}/>
       )}
