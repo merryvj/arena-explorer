@@ -57,19 +57,21 @@ function Card({ content }) {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <Actions id="actions">
-            <Title>{content.title}</Title>
-            {isHovered && (
+
+          {(isHovered || isMinimized) && (
+            <Actions id="actions">
+              <Title>{content.title}</Title>
               <ActionButtons>
                 <ActionButton onClick={() => setIsMinimized(!isMinimized)}>
                   {isMinimized ? "+" : "-"}
                 </ActionButton>
                 <ActionButton>*</ActionButton>
               </ActionButtons>
-            )}
-          </Actions>
+            </Actions>
+          )}
 
-          {!isMinimized && <CardContent content={content} onWheel={handleFrameScroll}/>}
+
+          {!isMinimized && <CardContent content={content} onWheel={handleFrameScroll} />}
         </Card>
       </Wrapper>
     </Draggable>
@@ -99,9 +101,10 @@ const ActionButton = styled.button`
     outline: none;
   }
 `;
+
 const Actions = styled.div`
   position: absolute;
-  top: 0;
+  top: -24px;
   height: 24px;
   width: 100%;
   border: dashed 1px blue;

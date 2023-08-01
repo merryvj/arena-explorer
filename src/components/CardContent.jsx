@@ -77,14 +77,12 @@ function CardContent({ content, onWheel}) {
 
   const Content = styled.div`
     position: absolute;
-    top: 24px;
     width: 100%;
     height: 100%;
     background-color: inherit;
     overflow: hidden;
     padding: 4px;
     border: dashed 1px blue;
-    border-top: none;
     overscroll-behavior: none;
   `;
 
