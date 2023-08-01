@@ -55,6 +55,7 @@ function Card({ content }) {
         <Card
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
+          onClick={() => {setIsMoving({ ...isMoving, zIndex: context.maxZIndex + 1 })}}
         >
 
           {(isHovered || isMinimized || isMoving.status) && (

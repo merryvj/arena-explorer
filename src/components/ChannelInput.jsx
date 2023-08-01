@@ -40,5 +40,6 @@ const Wrapper = styled.form`
     width: 100%;
     height: 32px;
     z-index: 10;
+    color: inherit;
 `
 export default ChannelInput
