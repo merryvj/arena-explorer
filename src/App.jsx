@@ -1,4 +1,4 @@
-import React, {createContext} from 'react';
+import React, {createContext, useState} from 'react';
 import data from '../contents.json';
 import Canvas from './components/Canvas';
 import './App.css'
@@ -15,12 +15,14 @@ const initialContext = {
   movingEl: null,
 }
 
+
 function App() {
-  const {blocks, status} = useChannel("https://www.are.na/ivol-ga/interconnections-and-networks");
+  const [channel, setChannel] = useState("https://www.are.na/ivol-ga/interconnections-and-networks");
+  const {blocks, status} = useChannel(channel);
 
   return (
     <CanvasContext.Provider value={initialContext}>
-      <ChannelInput/>
+      <ChannelInput updateBlocks={setChannel}/>
       {status === "loaded" && (
         <Canvas contents={blocks.contents}/>
       )}

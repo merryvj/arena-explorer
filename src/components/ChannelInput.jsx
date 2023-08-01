@@ -1,16 +1,16 @@
 import React, {useState} from 'react'
 import { styled } from 'styled-components'
 
-function ChannelInput() {
+function ChannelInput({updateBlocks}) {
     const [channelURL, setChannelURL] = useState("");
 
     function handleSubmit(e) {
         e.preventDefault();
         
         if (containsHost(channelURL)) {
-            //do something
+            updateBlocks(channelURL);
         }
-        
+
         function containsHost(url) {
             const regex = /are\.na/i;
             return regex.test(url);
@@ -39,8 +39,6 @@ const Wrapper = styled.form`
     top: 0;
     width: 100%;
     height: 32px;
-    border: solid 1px black;
-    background: red;
     z-index: 10;
 `
 export default ChannelInput
