@@ -13,12 +13,11 @@ function Card({ content }) {
 
   const Card = styled.div`
     position: relative;
-    height: 100%;
+    height: ${isMinimized ? "0" : "100%"};
     width: 100%;
     background-color: rgba(240, 240, 240, 0.9);
-    display: inline-block;
-    backdrop-filter: blur(8px);
     color: black;
+    
   `;
 
   const Wrapper = styled.div`
@@ -58,7 +57,7 @@ function Card({ content }) {
           onMouseLeave={() => setIsHovered(false)}
         >
 
-          {(isHovered || isMinimized) && (
+          {(isHovered || isMinimized || isMoving.status) && (
             <Actions id="actions">
               <Title>{content.title}</Title>
               <ActionButtons>
@@ -108,8 +107,10 @@ const Actions = styled.div`
   height: 24px;
   width: 100%;
   border: dashed 1px blue;
+  border-bottom: none;
   user-select: none;
   cursor: move;
+  background-color: inherit;
 `;
 
 const Title = styled.div`
