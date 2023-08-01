@@ -1,6 +1,8 @@
 # Are.na Hypermedia Canvas 
 
-This is a prototype tool that imports multimedia "blocks" from a specified Are.na channel onto an interactive canvas. 
+This is a prototype tool that imports multimedia "blocks" from a specified Are.na channel onto an interactive canvas. When I use Are.na to collect ideas and other fragments from the web, I want to organize ideas in relation to each other. 
+
+Try it in action: [Link coming soon!]
 
 ![image](https://github.com/merryvj/arena-explorer/assets/41601131/74837ead-ef85-4167-bf40-481c30fa9394)
 
