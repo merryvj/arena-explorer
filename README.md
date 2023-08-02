@@ -2,7 +2,7 @@
 
 This is a prototype tool that imports multimedia "blocks" from a specified Are.na channel onto an interactive canvas.
 
-Try it in action: [Link coming soon!]
+Try it in action: https://arena-explorer.onrender.com
 
 ![257353339-feac3394-9726-4349-b8ae-55518693b75a](https://github.com/merryvj/arena-explorer/assets/41601131/dd562386-92e9-463f-8c9e-d88957019b2d)
 
