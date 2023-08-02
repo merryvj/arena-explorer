@@ -22,7 +22,7 @@ When I use Are.na to collect ideas and other fragments, I want to organize ideas
 * [React-draggable](https://www.npmjs.com/package/react-draggable)
 * [Are.na API V2](https://dev.are.na/documentation/channels)
   
-### Try it 
+### Installation
 Run locally with
 ```
 npm install
