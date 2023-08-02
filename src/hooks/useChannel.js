@@ -11,7 +11,7 @@ function useChannel(url) {
             try {
                 setData([]);
                 const res = await fetch(
-                `http://api.are.na/v2/channels/${getUrlSlug(url)}`
+                `https://api.are.na/v2/channels/${getUrlSlug(url)}`
                 )
                 const json = await res.json();
                 setData(json);
