@@ -4,7 +4,7 @@ This is a prototype tool that imports multimedia "blocks" from a specified Are.n
 
 Try it in action: https://arena-explorer.onrender.com
 
-![257353339-feac3394-9726-4349-b8ae-55518693b75a](https://github.com/merryvj/arena-explorer/assets/41601131/dd562386-92e9-463f-8c9e-d88957019b2d)
+https://github.com/merryvj/arena-explorer/assets/41601131/16d96355-dfed-4c19-a640-23de7cec9db1
 
 
 ### Motivation
@@ -20,6 +20,9 @@ When I use Are.na to collect ideas and other fragments, I want to organize ideas
 ### Built with
 * ReactJS
 * [React-draggable](https://www.npmjs.com/package/react-draggable)
+
+
+
 * [Are.na API V2](https://dev.are.na/documentation/channels)
   
 ### Installation
