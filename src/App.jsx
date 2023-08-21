@@ -1,7 +1,6 @@
 import React, {createContext, useState} from 'react';
 import data from '../contents.json';
 import Canvas from './components/Canvas';
-import './App.css'
 import useChannel from './hooks/useChannel';
 import ChannelInput from './components/ChannelInput';
 

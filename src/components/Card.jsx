@@ -17,7 +17,6 @@ function Card({ content }) {
     width: 100%;
     background-color: rgba(240, 240, 240, 0.9);
     color: black;
-    
   `;
 
   const Wrapper = styled.div`
@@ -55,20 +54,18 @@ function Card({ content }) {
         <Card
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          onClick={() => {setIsMoving({ ...isMoving, zIndex: context.maxZIndex + 1 })}}
+          onClick={() => { setIsMoving({ ...isMoving, zIndex: context.maxZIndex + 1 }) }}
         >
 
-          {(isHovered || isMinimized || isMoving.status) && (
-            <Actions id="actions">
-              <Title>{content.title}</Title>
-              <ActionButtons>
-                <ActionButton onClick={() => setIsMinimized(!isMinimized)}>
-                  {isMinimized ? "+" : "-"}
-                </ActionButton>
-                <ActionButton>*</ActionButton>
-              </ActionButtons>
-            </Actions>
-          )}
+          <Actions id="actions">
+            <Title>{content.title}</Title>
+            <ActionButtons>
+              <ActionButton onClick={() => setIsMinimized(!isMinimized)}>
+                {isMinimized ? "+" : "-"}
+              </ActionButton>
+              {/* <ActionButton>*</ActionButton> */}
+            </ActionButtons>
+          </Actions>
 
 
           {!isMinimized && <CardContent content={content} onWheel={handleFrameScroll} />}
@@ -108,7 +105,6 @@ const Actions = styled.div`
   height: 24px;
   width: 100%;
   border: dashed 1px blue;
-  border-bottom: none;
   user-select: none;
   cursor: move;
   background-color: inherit;

@@ -36,7 +36,6 @@ function Canvas({ contents }) {
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: #efefef;
       overflow: scroll;
       cursor: grab;
       transform: scale(${scale.current}) translate(${offset.current.x}px, ${offset.current.y}px)

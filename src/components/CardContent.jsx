@@ -83,6 +83,7 @@ function CardContent({ content, onWheel}) {
     overflow: hidden;
     padding: 4px;
     border: dashed 1px blue;
+    border-top: none;
     overscroll-behavior: none;
   `;
 
